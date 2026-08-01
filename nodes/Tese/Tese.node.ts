@@ -63,6 +63,17 @@ export class Tese implements INodeType {
 				const items = extractListItems(response);
 				return toNodeOptions(items, 'question_id', ['title', 'name', 'question_id']);
 			},
+
+			async getReportingCycles(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+				const credentials = (await this.getCredentials('teseApi')) as TeseApiCredentials;
+				const response = await teseApiRequest.call(this, credentials, {
+					method: 'POST',
+					path: '/api/v3/external/reporting-cycle/reporting-cycle-list',
+					body: {},
+				});
+				const items = extractListItems(response);
+				return toNodeOptions(items, '_id', ['name', 'title', 'reporting_cycle_name']);
+			},
 		},
 	};
 

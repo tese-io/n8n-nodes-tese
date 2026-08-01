@@ -73,8 +73,10 @@ All action node routes use `/api/v3/external/*` with `Authorization: Bearer <api
 | Evidence Manager | `/api/v3/external/esg/evidence-manager` | Yes |
 | SPT | `/api/v3/external/esg/spt` | Yes |
 | Device | `/api/v3/external/devices` | Yes |
-| Reporting Cycle | `/api/v3/external/reporting-cycle` | Planned v0.3 |
-| Task Manager | `/api/v3/external/task-manager/*` | Planned v0.3 |
+| Reporting Cycle | `/api/v3/external/reporting-cycle` | Yes |
+| Task Approval | `/api/v3/external/task-manager/approvals` | Yes |
+| Task Issue | `/api/v3/external/task-manager/issues` | Yes |
+| Task Workflow | `/api/v3/external/task-manager/workflows` | Yes |
 
 ### FQL operations
 

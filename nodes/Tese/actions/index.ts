@@ -24,6 +24,10 @@ import { executeReportingCovenants } from './reportingCovenants';
 import { executeSpt } from './spt';
 import { executeSustainabilityTargets } from './sustainabilityTargets';
 import { executeValidationBank } from './validationBank';
+import { executeReportingCycle } from './reportingCycle';
+import { executeTaskApproval } from './taskApproval';
+import { executeTaskIssue } from './taskIssue';
+import { executeTaskWorkflow } from './taskWorkflow';
 import type { ActionContext } from './helpers';
 
 const resourceHandlers: Record<string, (ctx: ActionContext) => Promise<IDataObject>> = {
@@ -50,6 +54,10 @@ const resourceHandlers: Record<string, (ctx: ActionContext) => Promise<IDataObje
 	evidenceManager: executeEvidenceManager,
 	spt: executeSpt,
 	devices: executeDevices,
+	reportingCycle: executeReportingCycle,
+	taskApproval: executeTaskApproval,
+	taskIssue: executeTaskIssue,
+	taskWorkflow: executeTaskWorkflow,
 };
 
 export async function routeTeseOperation(

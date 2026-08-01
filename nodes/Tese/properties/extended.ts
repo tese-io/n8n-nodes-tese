@@ -211,6 +211,54 @@ export const extendedOperations: INodeProperties[] = [
 		],
 		'getAll',
 	),
+	operationsBlock(
+		'reportingCycle',
+		[
+			{ name: 'Create', value: 'create', action: 'Create a reporting cycle' },
+			{ name: 'Delete', value: 'delete', action: 'Delete a reporting cycle' },
+			{ name: 'FQL Query', value: 'fql', action: 'Query reporting cycles with FQL' },
+			{ name: 'Get', value: 'get', action: 'Get a reporting cycle' },
+			{ name: 'List', value: 'list', action: 'List reporting cycles' },
+			{ name: 'Update', value: 'update', action: 'Update a reporting cycle' },
+		],
+		'list',
+	),
+	operationsBlock(
+		'taskApproval',
+		[
+			{ name: 'Approve', value: 'approve', action: 'Approve a task approval' },
+			{ name: 'Entity Approve', value: 'entityApprove', action: 'Approve by entity' },
+			{ name: 'Entity Reject', value: 'entityReject', action: 'Reject by entity' },
+			{ name: 'Get', value: 'get', action: 'Get a task approval' },
+			{ name: 'List', value: 'list', action: 'List task approvals' },
+			{ name: 'Pending Count', value: 'pendingCount', action: 'Get pending approval count' },
+			{ name: 'Reject', value: 'reject', action: 'Reject a task approval' },
+		],
+		'list',
+	),
+	operationsBlock(
+		'taskIssue',
+		[
+			{ name: 'FQL Query', value: 'fql', action: 'Query task issues with FQL' },
+			{ name: 'Get', value: 'get', action: 'Get a task issue' },
+			{ name: 'My Tasks', value: 'myTasks', action: 'List my assigned tasks' },
+			{ name: 'Review', value: 'review', action: 'Review a task issue' },
+			{ name: 'Update', value: 'update', action: 'Update a task issue' },
+		],
+		'myTasks',
+	),
+	operationsBlock(
+		'taskWorkflow',
+		[
+			{ name: 'For Entity', value: 'forEntity', action: 'Get workflow for entity type' },
+			{
+				name: 'Validate Transition',
+				value: 'validateTransition',
+				action: 'Validate workflow transition',
+			},
+		],
+		'forEntity',
+	),
 ];
 
 export const extendedFields: INodeProperties[] = [
@@ -325,4 +373,64 @@ export const extendedFields: INodeProperties[] = [
 	resourceBodyField('devices'),
 	...fqlOnlyFields('devices'),
 	updatesField('devices'),
+
+	// Reporting Cycle
+	{
+		displayName: 'Reporting Cycle Name or ID',
+		name: 'reportingCycleId',
+		type: 'options',
+		description:
+			'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+		typeOptions: { loadOptionsMethod: 'getReportingCycles' },
+		required: true,
+		default: '',
+		displayOptions: {
+			show: { resource: ['reportingCycle'], operation: ['get', 'update', 'delete'] },
+		},
+	},
+	resourceBodyField('reportingCycle'),
+	...fqlOnlyFields('reportingCycle'),
+	updatesField('reportingCycle'),
+	requestBodyField('reportingCycle', ['list']),
+
+	// Task Approval
+	idField('Approval ID', 'approvalId', 'taskApproval', ['get', 'approve', 'reject']),
+	{
+		displayName: 'Entity Type',
+		name: 'entityType',
+		type: 'string',
+		default: '',
+		displayOptions: {
+			show: {
+				resource: ['taskApproval', 'taskWorkflow'],
+				operation: ['list', 'entityApprove', 'entityReject', 'forEntity'],
+			},
+		},
+	},
+	idField('Entity ID', 'entityId', 'taskApproval', ['entityApprove', 'entityReject']),
+	{
+		displayName: 'Status',
+		name: 'status',
+		type: 'string',
+		default: '',
+		displayOptions: { show: { resource: ['taskApproval'], operation: ['list'] } },
+	},
+	{
+		displayName: 'Reviewer ID',
+		name: 'reviewerId',
+		type: 'string',
+		default: '',
+		description: 'Optional user ID when using API key automation',
+		displayOptions: { show: { resource: ['taskApproval'], operation: ['list'] } },
+	},
+	requestBodyField('taskApproval', ['approve', 'reject', 'entityApprove', 'entityReject']),
+
+	// Task Issue
+	idField('Issue ID', 'issueId', 'taskIssue', ['get', 'update', 'review']),
+	...fqlOnlyFields('taskIssue'),
+	requestBodyField('taskIssue', ['myTasks', 'review']),
+	updatesField('taskIssue'),
+
+	// Task Workflow
+	requestBodyField('taskWorkflow', ['validateTransition']),
 ];

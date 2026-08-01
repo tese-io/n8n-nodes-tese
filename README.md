@@ -43,6 +43,9 @@ Facility, Activity, Metric Catalog, ESG Data, Framework, Audit Request, Report
 ### ESG workflow (v0.2)
 Answer Bank, Question Bank, Aggregation, Formula Execution, Sustainability Target, Emission Factor, Framework Pack, Framework Pack Answer, Normalised Answer Bank, Composite KPI, Materiality Assessment, Validation Bank, Reporting Covenant, Evidence Manager, SPT, Device
 
+### Reporting & tasks (v0.3)
+Reporting Cycle, Task Approval, Task Issue, Task Workflow
+
 See [LEARNING.md](./docs/LEARNING.md) for the full API parity matrix.
 
 ### Facility
