@@ -1,4 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
+import { extendedFields, extendedOperations } from './properties/extended';
 
 const resourceOptions: INodeProperties = {
 	displayName: 'Resource',
@@ -7,12 +8,28 @@ const resourceOptions: INodeProperties = {
 	noDataExpression: true,
 	options: [
 		{ name: 'Activity', value: 'activity' },
+		{ name: 'Aggregation', value: 'aggregation' },
+		{ name: 'Answer Bank', value: 'answerBank' },
 		{ name: 'Audit Request', value: 'auditRequest' },
+		{ name: 'Composite KPI', value: 'compositeKpi' },
+		{ name: 'Device', value: 'devices' },
+		{ name: 'Emission Factor', value: 'emissionFactors' },
 		{ name: 'ESG Data', value: 'esgData' },
+		{ name: 'Evidence Manager', value: 'evidenceManager' },
 		{ name: 'Facility', value: 'facility' },
+		{ name: 'Formula Execution', value: 'formulaExecution' },
 		{ name: 'Framework', value: 'framework' },
+		{ name: 'Framework Pack', value: 'frameworkPack' },
+		{ name: 'Framework Pack Answer', value: 'frameworkPackAnswer' },
+		{ name: 'Materiality Assessment', value: 'materialityAssessments' },
 		{ name: 'Metric Catalog', value: 'metricCatalog' },
+		{ name: 'Normalised Answer Bank', value: 'normalisedAnswerBank' },
+		{ name: 'Question Bank', value: 'questionBank' },
 		{ name: 'Report', value: 'report' },
+		{ name: 'Reporting Covenant', value: 'reportingCovenants' },
+		{ name: 'SPT', value: 'spt' },
+		{ name: 'Sustainability Target', value: 'sustainabilityTargets' },
+		{ name: 'Validation Bank', value: 'validationBank' },
 	],
 	default: 'facility',
 };
@@ -210,6 +227,7 @@ export const teseProperties: INodeProperties[] = [
 	frameworkOperations,
 	auditRequestOperations,
 	reportOperations,
+	...extendedOperations,
 	simplifyOutputField,
 
 	// ── Facility ──────────────────────────────────────────────────────────────
@@ -429,4 +447,5 @@ export const teseProperties: INodeProperties[] = [
 		description: 'Optional query parameters for check-published-exists',
 		displayOptions: { show: { resource: ['report'], operation: ['checkPublishedExists'] } },
 	},
+	...extendedFields,
 ];

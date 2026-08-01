@@ -54,6 +54,15 @@ export class Tese implements INodeType {
 				const items = extractListItems(response);
 				return toNodeOptions(items, '_id', ['name', 'title', 'framework_name']);
 			},
+
+			async getQuestionBank(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+				const credentials = (await this.getCredentials('teseApi')) as TeseApiCredentials;
+				const response = await teseApiRequest.call(this, credentials, {
+					path: '/api/v3/external/esg/question-bank/activity-inputs',
+				});
+				const items = extractListItems(response);
+				return toNodeOptions(items, 'question_id', ['title', 'name', 'question_id']);
+			},
 		},
 	};
 

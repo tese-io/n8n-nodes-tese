@@ -37,6 +37,14 @@ The `dev` command starts n8n on `http://localhost:5678` with hot reload.
 
 ## Operations (tese.io node)
 
+### Core (v0.1)
+Facility, Activity, Metric Catalog, ESG Data, Framework, Audit Request, Report
+
+### ESG workflow (v0.2)
+Answer Bank, Question Bank, Aggregation, Formula Execution, Sustainability Target, Emission Factor, Framework Pack, Framework Pack Answer, Normalised Answer Bank, Composite KPI, Materiality Assessment, Validation Bank, Reporting Covenant, Evidence Manager, SPT, Device
+
+See [LEARNING.md](./docs/LEARNING.md) for the full API parity matrix.
+
 ### Facility
 List, Get, FQL Query, Create, Update, Delete
 
@@ -91,6 +99,10 @@ Use **Test workflow** on the trigger to load sample fixtures without a live webh
 - [Package learning guide](./docs/LEARNING.md)
 
 ## Version history
+
+### 0.2.0
+
+Add 16 v3 external API resources (answer bank, question bank, aggregation, formula execution, and more). Refactor action handlers into modular `nodes/Tese/actions/` structure. Add question bank loadOptions.
 
 ### 0.1.1
 

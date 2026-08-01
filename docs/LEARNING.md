@@ -8,6 +8,7 @@ This document maps TESE platform concepts to n8n node patterns and explains how 
 |------|---------|
 | `credentials/TeseApi.credentials.ts` | Base URL + Bearer API key credential |
 | `nodes/Tese/` | Main action node (CRUD + FQL against `/api/v3/external/*`) |
+| `nodes/Tese/actions/` | Per-resource action handlers (v0.2 modular layout) |
 | `nodes/TeseTrigger/` | Webhook trigger for activity formula / aggregation payloads |
 | `nodes/TeseFinalize/` | Unified finalize + legacy callback node |
 | `nodes/shared/teseApiRequest.ts` | Shared HTTP helper with `NodeApiError` mapping |
@@ -21,8 +22,9 @@ This document maps TESE platform concepts to n8n node patterns and explains how 
 The main node uses the **resource + operation** pattern recommended by n8n:
 
 1. `properties.ts` defines UI fields with `displayOptions.show` keyed on `resource` and `operation`.
-2. `executeRouter.ts` switches on resource/operation and calls `teseApiRequest`.
-3. `Tese.node.ts` wires credentials, loadOptions (`getFacilities`, `getFrameworks`), and delegates execute to the router.
+2. `actions/<resource>.ts` handlers call `teseApiRequest` via shared helpers.
+3. `executeRouter.ts` delegates to `actions/index.ts` router.
+4. `Tese.node.ts` wires credentials, loadOptions, and execute.
 
 This mirrors the MCP tools in `tese-mcp-server` — each MCP tool maps 1:1 to a resource/operation pair hitting the same external API paths.
 
@@ -46,15 +48,33 @@ The **Legacy Callback** operation POSTs to `callback_url` from older webhook pay
 
 All action node routes use `/api/v3/external/*` with `Authorization: Bearer <api_key>`.
 
-| Resource | Base path | MCP tool prefix |
-|----------|-----------|-----------------|
-| Facility | `/api/v3/external/facilities` | `tese_external_*_facilit*` |
-| Activity | `/api/v3/external/esg/activity-store` | `tese_external_*_activit*` |
-| Metric Catalog | `/api/v3/external/esg/metric-catalog` | `tese_external_*_metric*` |
-| ESG Data | `/api/v3/external/esg/esg-data` | `tese_external_*_esg_data*` |
-| Framework | `/api/v3/external/esg/framework` | `tese_external_*_framework*` |
-| Audit Request | `/api/v3/external/audit-requests` | `tese_external_*_audit*` |
-| Report | `/api/v3/external/reports` | (external reports API) |
+| Resource | Base path | In node (v0.2) |
+|----------|-----------|----------------|
+| Facility | `/api/v3/external/facilities` | Yes |
+| Activity | `/api/v3/external/esg/activity-store` | Yes |
+| Metric Catalog | `/api/v3/external/esg/metric-catalog` | Yes |
+| ESG Data | `/api/v3/external/esg/esg-data` | Yes |
+| Framework | `/api/v3/external/esg/framework` | Yes |
+| Audit Request | `/api/v3/external/audit-requests` | Yes |
+| Report | `/api/v3/external/reports` | Yes |
+| Answer Bank | `/api/v3/external/esg/answer-bank` | Yes |
+| Question Bank | `/api/v3/external/esg/question-bank` | Yes |
+| Aggregation | `/api/v3/external/esg/aggregation` | Yes |
+| Formula Execution | `/api/v3/external/esg/formula/execution` | Yes |
+| Sustainability Target | `/api/v3/external/esg/sustainability-targets` | Yes |
+| Emission Factor | `/api/v3/external/esg/emission-factors` | Yes |
+| Framework Pack | `/api/v3/external/esg/framework-pack` | Yes |
+| Framework Pack Answer | `/api/v3/external/esg/framework-pack-answer` | Yes |
+| Normalised Answer Bank | `/api/v3/external/esg/normalised-answer-bank` | Yes |
+| Composite KPI | `/api/v3/external/esg/composite-kpi` | Yes |
+| Materiality Assessment | `/api/v3/external/esg/materiality-assessments` | Yes |
+| Validation Bank | `/api/v3/external/esg/validation-bank` | Yes |
+| Reporting Covenant | `/api/v3/external/esg/reporting-covenants` | Yes |
+| Evidence Manager | `/api/v3/external/esg/evidence-manager` | Yes |
+| SPT | `/api/v3/external/esg/spt` | Yes |
+| Device | `/api/v3/external/devices` | Yes |
+| Reporting Cycle | `/api/v3/external/reporting-cycle` | Planned v0.3 |
+| Task Manager | `/api/v3/external/task-manager/*` | Planned v0.3 |
 
 ### FQL operations
 
