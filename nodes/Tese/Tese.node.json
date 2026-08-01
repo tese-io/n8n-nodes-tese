@@ -1,0 +1,18 @@
+{
+	"node": "n8n-nodes-tese.tese",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["ESG"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://docs.tese.io/integrations/n8n#credentials"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://docs.tese.io/integrations/n8n"
+			}
+		]
+	}
+}
