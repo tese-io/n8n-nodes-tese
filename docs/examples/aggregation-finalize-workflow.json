@@ -1,0 +1,46 @@
+{
+  "name": "tese.io Activity Aggregation → Finalize",
+  "nodes": [
+    {
+      "parameters": {
+        "event": "activityAggregation"
+      },
+      "name": "tese.io Trigger",
+      "type": "n8n-nodes-tese.teseTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Example: sum included activity values\nconst activities = $input.first().json.activities ?? [];\nconst total = activities\n  .filter((a) => a.include !== false)\n  .reduce((sum, a) => sum + Number(a.value ?? 0), 0);\nreturn [{ json: { ...$input.first().json, computed_total: total } }];"
+      },
+      "name": "Aggregate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "operation": "finalizeAggregation",
+        "value": "={{ $json.computed_total }}",
+        "unitCode": "liters",
+        "status": "completed"
+      },
+      "name": "tese.io Finalize",
+      "type": "n8n-nodes-tese.teseFinalize",
+      "typeVersion": 1,
+      "position": [720, 300]
+    }
+  ],
+  "connections": {
+    "tese.io Trigger": {
+      "main": [[{ "node": "Aggregate", "type": "main", "index": 0 }]]
+    },
+    "Aggregate": {
+      "main": [[{ "node": "tese.io Finalize", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

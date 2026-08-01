@@ -1,9 +1,13 @@
 {
 	"name": "n8n-nodes-tese",
-	"version": "0.3.1",
+	"version": "0.3.2",
 	"description": "n8n community nodes for TESE — ESG external API, webhook triggers, and workflow finalize",
 	"license": "MIT",
 	"homepage": "https://docs.tese.io/integrations/n8n",
+	"publishConfig": {
+		"access": "public",
+		"provenance": true
+	},
 	"keywords": [
 		"n8n-community-node-package",
 		"tese",
@@ -11,8 +15,9 @@
 		"sustainability"
 	],
 	"author": {
-		"name": "Sushil Kumar Singh",
-		"email": "sushil@cvtrobotics.in"
+		"name": "tese.io",
+		"email": "dev@tese.io",
+		"url": "https://github.com/tese-io"
 	},
 	"repository": {
 		"type": "git",

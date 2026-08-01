@@ -18,7 +18,7 @@ Restart n8n after installing.
 ### Development install
 
 ```bash
-git clone <repo-url> n8n-nodes-tese
+git clone https://github.com/tese-io/n8n-nodes-tese.git
 cd n8n-nodes-tese
 npm install
 npm run build
@@ -71,14 +71,27 @@ List, Get, FQL Query, Get By Period, Check Published Exists, Submit For Review, 
 
 ## Credentials
 
-Create a **tese.io API** credential:
+Create a **tese.io API** credential in n8n:
+
+1. Open **Credentials** → **Add credential** → search **tese.io API**
+2. Set **Base URL** to your TESE backend (default `https://api.tese.io`)
+3. Paste your tenant **API Key** from TESE Settings → External API keys
+4. Click **Test** — confirms auth against `GET /api/v3/external/facilities?limit=1`
 
 | Field | Value |
 |-------|-------|
 | Base URL | `https://api.tese.io` (or your self-hosted backend) |
 | API Key | Tenant external API key from TESE Settings |
 
-Authentication uses `Authorization: Bearer <api_key>`.
+Authentication uses `Authorization: Bearer <api_key>`. Credentials are stored encrypted by n8n (not by this package).
+
+## Example workflow
+
+Import [docs/examples/aggregation-finalize-workflow.json](./docs/examples/aggregation-finalize-workflow.json) into n8n:
+
+1. **tese.io Trigger** (Activity Aggregation) receives the webhook payload from TESE
+2. **Code** node aggregates activity values
+3. **tese.io Finalize** posts the result back (uses `finalize_token` from the trigger when present)
 
 ## Typical workflow
 
@@ -102,6 +115,18 @@ Use **Test workflow** on the trigger to load sample fixtures without a live webh
 - [Package learning guide](./docs/LEARNING.md)
 
 ## Version history
+
+### 0.3.2
+
+Verification prep: GitHub Actions publish workflow fix, CI tests, npm provenance config, tese-io author metadata, example workflow JSON.
+
+### 0.3.1
+
+Add unit tests for v0.3 actions, shared helpers, and credentials. Credential test uses v3 external facilities endpoint.
+
+### 0.3.0
+
+Add Reporting Cycle, Task Approval, Task Issue, and Task Workflow resources.
 
 ### 0.2.0
 
