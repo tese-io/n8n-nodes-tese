@@ -57,7 +57,7 @@ jobs:
             npm run release
           else
             npm run build
-            npm publish --provenance --access public
+            npm publish --provenance --access public --ignore-scripts
           fi
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
