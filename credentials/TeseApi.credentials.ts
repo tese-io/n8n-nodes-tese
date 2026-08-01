@@ -37,8 +37,11 @@ export class TeseApi implements ICredentialType {
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: '={{$credentials.baseUrl.replace(/\\/$/, "")}}',
-			url: '/api/v1/health-check/get',
+			url: '/api/v3/external/facilities',
 			method: 'GET',
+			qs: {
+				limit: 1,
+			},
 			headers: {
 				Authorization: '=Bearer {{$credentials.apiKey}}',
 				Accept: 'application/json',

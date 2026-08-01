@@ -125,7 +125,7 @@ tese.io Trigger (activityAggregation)
 npm install
 npm run build      # compile TypeScript
 npm run lint       # ESLint via n8n-node CLI
-npm test           # unit tests for finalizeHelpers
+npm test           # unit tests (finalize helpers, v0.3 actions, credentials)
 npm run dev        # hot-reload in local n8n
 ```
 
@@ -136,6 +136,6 @@ Create a **tese.io API** credential in n8n with:
 - **Base URL**: your TESE backend (e.g. `https://api.tese.io`)
 - **API Key**: tenant external API key from TESE Settings
 
-The credential test hits `GET /api/v1/health-check/get`.
+The credential test hits `GET /api/v3/external/facilities?limit=1` (validates API key against v3 external routes).
 
 Finalize operations can run **without** credentials when the trigger payload includes `finalize_token`.

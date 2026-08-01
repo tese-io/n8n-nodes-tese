@@ -42,17 +42,38 @@ async function readErrorBody(response: IDataObject): Promise<string> {
 	}
 }
 
+type TeseApiRequestContext = {
+	helpers: {
+		httpRequest: (options: IHttpRequestOptions) => Promise<unknown>;
+	};
+	getNode: () => INode;
+};
+
+type TeseApiRequestHandler = (
+	this: TeseApiRequestContext,
+	credentials: TeseApiCredentials,
+	options: TeseRequestOptions,
+	itemIndex?: number,
+) => Promise<unknown>;
+
+export const teseApiRequestTestState: { handler: TeseApiRequestHandler | undefined } = {
+	handler: undefined,
+};
+
+export function setTeseApiRequestTestHandler(handler: TeseApiRequestHandler | undefined): void {
+	teseApiRequestTestState.handler = handler;
+}
+
 export async function teseApiRequest(
-	this: {
-		helpers: {
-			httpRequest: (options: IHttpRequestOptions) => Promise<unknown>;
-		};
-		getNode: () => INode;
-	},
+	this: TeseApiRequestContext,
 	credentials: TeseApiCredentials,
 	options: TeseRequestOptions,
 	itemIndex?: number,
 ): Promise<unknown> {
+	if (teseApiRequestTestState.handler) {
+		return teseApiRequestTestState.handler.call(this, credentials, options, itemIndex);
+	}
+
 	const { method = 'GET', path, qs, body, headers = {} } = options;
 
 	const requestOptions: IHttpRequestOptions = {
