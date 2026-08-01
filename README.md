@@ -31,11 +31,11 @@ The `dev` command starts n8n on `http://localhost:5678` with hot reload.
 
 | Node | Type | Description |
 |------|------|-------------|
-| **Tese** | Action | CRUD + FQL operations against TESE external API |
-| **Tese Trigger** | Trigger | Webhook for activity formula and aggregation events |
-| **Tese Finalize** | Action | Send computed results to TESE finalize endpoint |
+| **tese.io** | Action | CRUD + FQL operations against tese.io external API |
+| **tese.io Trigger** | Trigger | Webhook for activity formula and aggregation events |
+| **tese.io Finalize** | Action | Send computed results to tese.io finalize endpoint |
 
-## Operations (Tese node)
+## Operations (tese.io node)
 
 ### Facility
 List, Get, FQL Query, Create, Update, Delete
@@ -60,7 +60,7 @@ List, Get, FQL Query, Get By Period, Check Published Exists, Submit For Review, 
 
 ## Credentials
 
-Create a **Tese API** credential:
+Create a **tese.io API** credential:
 
 | Field | Value |
 |-------|-------|
@@ -71,10 +71,10 @@ Authentication uses `Authorization: Bearer <api_key>`.
 
 ## Typical workflow
 
-1. Add **Tese Trigger** — choose Activity Formula or Activity Aggregation
+1. Add **tese.io Trigger** — choose Activity Formula or Activity Aggregation
 2. Copy the webhook URL into your TESE question n8n config
 3. Process the payload in n8n
-4. Add **Tese Finalize** — set value/unit and finalize back to TESE
+4. Add **tese.io Finalize** — set value/unit and finalize back to TESE
 
 Use **Test workflow** on the trigger to load sample fixtures without a live webhook.
 
@@ -92,6 +92,10 @@ Use **Test workflow** on the trigger to load sample fixtures without a live webh
 
 ## Version history
 
+### 0.1.1
+
+Rebrand node and credential display names to **tese.io** (internal node IDs unchanged).
+
 ### 0.1.0
 
-Initial release with Tese action node, Tese Trigger, and Tese Finalize nodes.
+Initial release with tese.io action node, tese.io Trigger, and tese.io Finalize nodes.

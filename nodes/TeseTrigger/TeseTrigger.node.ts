@@ -11,15 +11,15 @@ import { getTriggerFixture } from '../shared/testFixtures';
 
 export class TeseTrigger implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Tese Trigger',
+		displayName: 'tese.io Trigger',
 		name: 'teseTrigger',
 		icon: { light: 'file:tese.svg', dark: 'file:tese.dark.svg' },
 		group: ['trigger'],
 		version: 1,
 		subtitle: '={{$parameter["eventType"]}}',
-		description: 'Starts a workflow when TESE sends an activity formula or aggregation webhook',
+		description: 'Starts a workflow when tese.io sends an activity formula or aggregation webhook',
 		defaults: {
-			name: 'Tese Trigger',
+			name: 'tese.io Trigger',
 		},
 		inputs: [],
 		outputs: [NodeConnectionTypes.Main],

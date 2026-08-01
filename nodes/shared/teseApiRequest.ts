@@ -80,7 +80,7 @@ export async function teseApiRequest(
 			response?: IDataObject & { statusCode?: number };
 		};
 		const statusCode = apiError.statusCode ?? apiError.response?.statusCode;
-		const message = apiError.message ?? 'Tese API request failed';
+		const message = apiError.message ?? 'tese.io API request failed';
 		const bodySnippet = apiError.response
 			? await readErrorBody(apiError.response as IDataObject)
 			: '';

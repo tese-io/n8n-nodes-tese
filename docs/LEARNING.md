@@ -84,17 +84,17 @@ X-Correlation-Id: <uuid>
 ## Typical workflow
 
 ```
-Tese Trigger (activityFormula)
+tese.io Trigger (activityFormula)
   → [Your computation nodes]
-  → Tese Finalize (finalizeActivity)
+  → tese.io Finalize (finalizeActivity)
 ```
 
 For aggregations:
 
 ```
-Tese Trigger (activityAggregation)
+tese.io Trigger (activityAggregation)
   → [Aggregate activities]
-  → Tese Finalize (finalizeAggregation)
+  → tese.io Finalize (finalizeAggregation)
 ```
 
 ## Development commands
@@ -109,7 +109,7 @@ npm run dev        # hot-reload in local n8n
 
 ## Credentials
 
-Create a **Tese API** credential in n8n with:
+Create a **tese.io API** credential in n8n with:
 
 - **Base URL**: your TESE backend (e.g. `https://api.tese.io`)
 - **API Key**: tenant external API key from TESE Settings

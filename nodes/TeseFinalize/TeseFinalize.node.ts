@@ -144,16 +144,16 @@ async function postFinalizeRequest(
 
 export class TeseFinalize implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Tese Finalize',
+		displayName: 'tese.io Finalize',
 		name: 'teseFinalize',
 		icon: { light: 'file:tese.svg', dark: 'file:tese.dark.svg' },
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"]}}',
 		description:
-			'Finalize TESE n8n workflow results via the unified finalize endpoint or legacy callback URL',
+			'Finalize tese.io n8n workflow results via the unified finalize endpoint or legacy callback URL',
 		defaults: {
-			name: 'Tese Finalize',
+			name: 'tese.io Finalize',
 		},
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],

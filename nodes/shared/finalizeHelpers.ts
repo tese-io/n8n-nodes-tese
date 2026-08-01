@@ -34,7 +34,7 @@ export function buildFinalizeHeaders(input: FinalizeHeaderInput): IDataObject {
 
 	if (!authorization) {
 		throw new Error(
-			'No finalize auth available. Provide finalize_token from the trigger payload or configure Tese API credentials.',
+			'No finalize auth available. Provide finalize_token from the trigger payload or configure tese.io API credentials.',
 		);
 	}
 

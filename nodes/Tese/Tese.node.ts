@@ -12,15 +12,15 @@ import { teseApiRequest, type TeseApiCredentials } from '../shared/teseApiReques
 
 export class Tese implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Tese',
+		displayName: 'tese.io',
 		name: 'tese',
 		icon: { light: 'file:tese.svg', dark: 'file:tese.dark.svg' },
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Interact with the TESE external API (facilities, ESG data, reports, and more)',
+		description: 'Interact with the tese.io external API (facilities, ESG data, reports, and more)',
 		defaults: {
-			name: 'Tese',
+			name: 'tese.io',
 		},
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],

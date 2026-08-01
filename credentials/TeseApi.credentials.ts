@@ -3,7 +3,7 @@ import type { ICredentialTestRequest, ICredentialType, INodeProperties } from 'n
 export class TeseApi implements ICredentialType {
 	name = 'teseApi';
 
-	displayName = 'Tese API';
+	displayName = 'tese.io API';
 
 	icon = {
 		light: 'file:../nodes/Tese/tese.svg',
