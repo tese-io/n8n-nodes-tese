@@ -38,8 +38,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
-          registry-url: 'https://registry.npmjs.org'
+          # Node 24 ships npm 11+ required for OIDC trusted publishing.
+          # Do not set registry-url — it writes an empty _authToken line that
+          # blocks OIDC when NPM_TOKEN is not configured (Option A).
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
@@ -52,8 +54,10 @@ jobs:
         run: |
           if [ -n "$NPM_TOKEN" ]; then
             npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
+            npm run release
+          else
+            npm run build
+            npm publish --provenance --access public
           fi
-          npm run release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
