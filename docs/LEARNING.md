@@ -78,6 +78,18 @@ All action node routes use `/api/v3/external/*` with `Authorization: Bearer <api
 | Task Issue | `/api/v3/external/task-manager/issues` | Yes |
 | Task Workflow | `/api/v3/external/task-manager/workflows` | Yes |
 
+### Tesera AI (`Tesera AI` node, v0.4+)
+
+Requires API key permissions `read:ai` and/or `write:ai`.
+
+| Operation | Method | Path |
+|-----------|--------|------|
+| Query | POST | `/api/v3/external/ai/query` |
+| Chat: Create | POST | `/api/v3/external/ai/chat/new` |
+| Chat: Message | POST | `/api/v3/external/ai/chat/:sessionId/message` |
+| Chat: History | GET | `/api/v3/external/ai/chat/:sessionId/history` |
+| Format Action Result | POST | `/api/v3/external/ai/format-action-result` |
+
 ### FQL operations
 
 Several resources support **FQL** (Filter Query Language) via `POST .../fql` with a JSON body containing `filter`, `sort`, `page`, and `limit`.
