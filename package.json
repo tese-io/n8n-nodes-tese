@@ -1,7 +1,7 @@
 {
 	"name": "n8n-nodes-tese",
-	"version": "0.4.0",
-	"description": "n8n community nodes for TESE — ESG external API, Tesera AI, webhook triggers, and workflow finalize",
+	"version": "0.5.0",
+	"description": "n8n community nodes for TESE — ESG external API, Tesera AI, platform triggers, webhook triggers, and workflow finalize",
 	"license": "MIT",
 	"homepage": "https://docs.tese.io/integrations/n8n",
 	"publishConfig": {
@@ -45,6 +45,7 @@
 		"nodes": [
 			"dist/nodes/Tese/Tese.node.js",
 			"dist/nodes/TeseraAi/TeseraAi.node.js",
+			"dist/nodes/TesePlatformTrigger/TesePlatformTrigger.node.js",
 			"dist/nodes/TeseTrigger/TeseTrigger.node.js",
 			"dist/nodes/TeseFinalize/TeseFinalize.node.js"
 		]

@@ -90,6 +90,29 @@ Requires API key permissions `read:ai` and/or `write:ai`.
 | Chat: History | GET | `/api/v3/external/ai/chat/:sessionId/history` |
 | Format Action Result | POST | `/api/v3/external/ai/format-action-result` |
 
+### Platform webhooks (`tese.io Platform Trigger`, v0.5+)
+
+Requires `read:workflow_events` + `write:workflow_events` on the API key. Backend must have `ENABLE_EVENT_SYSTEM=true` with Redis.
+
+| n8n Event | TESE subscription event |
+|-----------|---------------------------|
+| Task Status Changed | `ENTITY_STATUS_CHANGED` (filtered: `entityType=task`) |
+| Report Status Changed | `ENTITY_STATUS_CHANGED` (filtered: `entityType=report`) |
+| Activity Status Changed | `ENTITY_STATUS_CHANGED` (filtered: `entityType=activity`) |
+| Entity Status Changed | `ENTITY_STATUS_CHANGED` |
+| Task Approval Decided | `TASK_APPROVAL_DECIDED` |
+| Assessment Published | `ASSESSMENT_PUBLISHED` |
+| Assessment Created | `ASSESSMENT_CREATED` |
+| Device Created | `MODEL_DEVICE_CREATE` |
+
+Auto-register calls:
+
+| Method | Path |
+|--------|------|
+| POST | `/api/v3/external/webhooks/subscriptions` |
+| GET | `/api/v3/external/webhooks/subscriptions` |
+| DELETE | `/api/v3/external/webhooks/subscriptions/:id` |
+
 ### FQL operations
 
 Several resources support **FQL** (Filter Query Language) via `POST .../fql` with a JSON body containing `filter`, `sort`, `page`, and `limit`.

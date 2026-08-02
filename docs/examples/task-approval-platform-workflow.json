@@ -1,0 +1,57 @@
+{
+  "name": "React to TESE task approval decisions",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Task Approval → Notify\n\n### How it works\n\nWhen a TESE task approval is approved or rejected, this workflow receives a platform webhook and sends a Slack-style notification payload (via Set node) for downstream alerting.\n\n### Setup steps\n\n1. Install **n8n-nodes-tese@0.5.0** (Settings → Community Nodes).\n2. Create **tese.io API** credentials with `read:workflow_events` and `write:workflow_events`.\n3. Activate the workflow — the Platform Trigger auto-registers its webhook URL with TESE.\n4. Ensure `ENABLE_EVENT_SYSTEM=true` and Redis are configured on the TESE backend.\n\n**Docs:** https://docs.tese.io/integrations/n8n",
+        "width": 460,
+        "height": 420,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [80, 220],
+      "id": "sticky-task-approval",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "eventType": "taskApprovalDecided",
+        "autoRegister": true
+      },
+      "id": "platform-trigger-001",
+      "name": "tese.io Platform Trigger",
+      "type": "n8n-nodes-tese.tesePlatformTrigger",
+      "typeVersion": 1,
+      "position": [620, 320]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "msg",
+              "name": "message",
+              "value": "=Task approval {{ $json.data.status }} for {{ $json.data.entity_type }} ({{ $json.data.entity_id }})",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-message-001",
+      "name": "Build Message",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [880, 320]
+    }
+  ],
+  "connections": {
+    "tese.io Platform Trigger": {
+      "main": [[{ "node": "Build Message", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
