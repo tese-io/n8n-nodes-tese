@@ -116,6 +116,10 @@ Use **Test workflow** on the trigger to load sample fixtures without a live webh
 
 ## Version history
 
+### 0.3.4
+
+Sync package-lock version with package.json after dependency audit.
+
 ### 0.3.3
 
 Replace placeholder icons with official TESE logo from brand assets. Fix creator template example workflow (eventType, sticky notes, connections).

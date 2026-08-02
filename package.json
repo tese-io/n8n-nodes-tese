@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-tese",
-	"version": "0.3.3",
+	"version": "0.3.4",
 	"description": "n8n community nodes for TESE — ESG external API, webhook triggers, and workflow finalize",
 	"license": "MIT",
 	"homepage": "https://docs.tese.io/integrations/n8n",
