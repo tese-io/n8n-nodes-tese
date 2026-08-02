@@ -1,0 +1,65 @@
+{
+	"name": "TESE OCR → Activity entry",
+	"nodes": [
+		{
+			"parameters": {},
+			"id": "manual-trigger",
+			"name": "Manual Trigger",
+			"type": "n8n-nodes-base.manualTrigger",
+			"typeVersion": 1,
+			"position": [240, 300]
+		},
+		{
+			"parameters": {
+				"operation": "processDocument",
+				"imageSource": "url",
+				"imageUrl": "={{ $json.documentUrl }}",
+				"mimeType": "application/pdf",
+				"documentType": "electricity_bill",
+				"hint": "Utility bill for facility reporting period"
+			},
+			"id": "tese-ocr",
+			"name": "tese.io OCR",
+			"type": "n8n-nodes-tese.teseOcr",
+			"typeVersion": 1,
+			"position": [480, 300],
+			"credentials": {
+				"teseApi": {
+					"id": "REPLACE_WITH_CREDENTIAL_ID",
+					"name": "tese.io API"
+				}
+			}
+		},
+		{
+			"parameters": {
+				"resource": "activity",
+				"operation": "create",
+				"additionalFields": {}
+			},
+			"id": "tese-activity",
+			"name": "tese.io Activity Create",
+			"type": "n8n-nodes-tese.tese",
+			"typeVersion": 1,
+			"position": [720, 300],
+			"credentials": {
+				"teseApi": {
+					"id": "REPLACE_WITH_CREDENTIAL_ID",
+					"name": "tese.io API"
+				}
+			},
+			"notes": "Map OCR extracted_fields from prior node into activity payload"
+		}
+	],
+	"connections": {
+		"Manual Trigger": {
+			"main": [[{ "node": "tese.io OCR", "type": "main", "index": 0 }]]
+		},
+		"tese.io OCR": {
+			"main": [[{ "node": "tese.io Activity Create", "type": "main", "index": 0 }]]
+		}
+	},
+	"meta": {
+		"templateCredsSetupCompleted": false,
+		"instanceId": "tese-ocr-activity-template"
+	}
+}
