@@ -1,23 +1,38 @@
 {
-  "name": "tese.io Activity Aggregation → Finalize",
+  "name": "Finalize tese.io activity aggregations with custom code",
   "nodes": [
     {
       "parameters": {
-        "event": "activityAggregation"
+        "content": "## tese.io Activity Aggregation → Finalize\n\n### How it works\n\nThis workflow receives an activity aggregation event from tese.io, processes it with a Code node, and finalizes the result back through tese.io. The aggregation step sums included activity values as an example before passing the output onward.\n\n### Setup steps\n\n1. Install community node **n8n-nodes-tese** (Settings → Community Nodes).\n2. Create **tese.io API** credential (Base URL + external API key from TESE Settings).\n3. Copy the Trigger webhook URL into your TESE aggregation question config.\n4. Use **Test workflow** on the trigger to validate with sample data.\n\n### Customization\n\nModify the Aggregate Code node to change how activity values are combined, filtered, or transformed. Update Finalize **unitCode** and **status** as needed.\n\n**Docs:** https://docs.tese.io/integrations/n8n",
+        "width": 480,
+        "height": 520,
+        "color": 4
       },
-      "name": "tese.io Trigger",
-      "type": "n8n-nodes-tese.teseTrigger",
+      "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [240, 300]
+      "position": [80, 200],
+      "id": "491480f6-d4b0-4e0b-af49-12467643b74d",
+      "name": "Sticky Note"
     },
     {
       "parameters": {
-        "jsCode": "// Example: sum included activity values\nconst activities = $input.first().json.activities ?? [];\nconst total = activities\n  .filter((a) => a.include !== false)\n  .reduce((sum, a) => sum + Number(a.value ?? 0), 0);\nreturn [{ json: { ...$input.first().json, computed_total: total } }];"
+        "eventType": "activityAggregation"
       },
+      "id": "e5f6a7b8-c9d0-1234-ef01-345678901234",
+      "name": "tese.io Trigger",
+      "type": "n8n-nodes-tese.teseTrigger",
+      "typeVersion": 1,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const activities = $input.first().json.activities || [];\nconst total = activities\n  .filter((a) => a.include !== false)\n  .reduce((sum, a) => sum + Number(a.value || 0), 0);\nreturn [{ json: { ...$input.first().json, computed_total: total } }];"
+      },
+      "id": "f6a7b8c9-d0e1-2345-f012-456789012345",
       "name": "Aggregate",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [480, 300]
+      "position": [880, 300]
     },
     {
       "parameters": {
@@ -26,10 +41,11 @@
         "unitCode": "liters",
         "status": "completed"
       },
+      "id": "a7b8c9d0-e1f2-3456-0123-567890123456",
       "name": "tese.io Finalize",
       "type": "n8n-nodes-tese.teseFinalize",
       "typeVersion": 1,
-      "position": [720, 300]
+      "position": [1120, 300]
     }
   ],
   "connections": {
