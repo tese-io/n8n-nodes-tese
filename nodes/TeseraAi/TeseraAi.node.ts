@@ -171,22 +171,10 @@ export class TeseraAi implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Query',
-						value: 'query',
-						description: 'One-shot AI query (RAG, portfolio analysis, data questions)',
-						action: 'Run an AI query',
-					},
-					{
 						name: 'Chat: Create Session',
 						value: 'createChat',
 						description: 'Start a multi-turn Tesera chat session',
 						action: 'Create a chat session',
-					},
-					{
-						name: 'Chat: Send Message',
-						value: 'sendMessage',
-						description: 'Send a message in an existing chat session',
-						action: 'Send a chat message',
 					},
 					{
 						name: 'Chat: Get History',
@@ -195,10 +183,22 @@ export class TeseraAi implements INodeType {
 						action: 'Get chat history',
 					},
 					{
+						name: 'Chat: Send Message',
+						value: 'sendMessage',
+						description: 'Send a message in an existing chat session',
+						action: 'Send a chat message',
+					},
+					{
 						name: 'Format Action Result',
 						value: 'formatActionResult',
 						description: 'Turn raw API JSON into a natural language answer',
 						action: 'Format an action result',
+					},
+					{
+						name: 'Query',
+						value: 'query',
+						description: 'One-shot AI query (RAG, portfolio analysis, data questions)',
+						action: 'Run an AI query',
 					},
 				],
 				default: 'query',
