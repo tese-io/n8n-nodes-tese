@@ -1,0 +1,18 @@
+{
+	"node": "n8n-nodes-tese.teseClimate",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["ESG", "tese.io", "Analytics"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://docs.tese.io/integrations/n8n#credentials"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://docs.tese.io/integrations/n8n#tese-io-climate"
+			}
+		]
+	}
+}

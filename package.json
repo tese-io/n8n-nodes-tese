@@ -1,7 +1,7 @@
 {
 	"name": "n8n-nodes-tese",
-	"version": "0.7.0",
-	"description": "n8n community nodes for TESE — ESG external API, Tesera AI, OCR, voice entry, platform triggers, webhook triggers, and workflow finalize",
+	"version": "1.0.0",
+	"description": "n8n community nodes for TESE — ESG external API, Tesera AI, OCR, voice entry, anomaly detection, climate risk, platform triggers, webhook triggers, and workflow finalize",
 	"license": "MIT",
 	"homepage": "https://docs.tese.io/integrations/n8n",
 	"publishConfig": {
@@ -47,6 +47,8 @@
 			"dist/nodes/TeseraAi/TeseraAi.node.js",
 			"dist/nodes/TeseOcr/TeseOcr.node.js",
 			"dist/nodes/TeseVoice/TeseVoice.node.js",
+			"dist/nodes/TeseAnomaly/TeseAnomaly.node.js",
+			"dist/nodes/TeseClimate/TeseClimate.node.js",
 			"dist/nodes/TesePlatformTrigger/TesePlatformTrigger.node.js",
 			"dist/nodes/TeseTrigger/TeseTrigger.node.js",
 			"dist/nodes/TeseFinalize/TeseFinalize.node.js"

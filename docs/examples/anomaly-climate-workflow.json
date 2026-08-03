@@ -1,0 +1,60 @@
+{
+	"name": "TESE anomaly review workflow",
+	"nodes": [
+		{
+			"parameters": {},
+			"id": "manual-trigger",
+			"name": "Manual Trigger",
+			"type": "n8n-nodes-base.manualTrigger",
+			"typeVersion": 1,
+			"position": [240, 300]
+		},
+		{
+			"parameters": {
+				"operation": "getMany",
+				"status": "active",
+				"limit": 50
+			},
+			"id": "list-anomalies",
+			"name": "tese.io Anomaly",
+			"type": "n8n-nodes-tese.teseAnomaly",
+			"typeVersion": 1,
+			"position": [480, 300],
+			"credentials": {
+				"teseApi": {
+					"id": "REPLACE_WITH_CREDENTIAL_ID",
+					"name": "tese.io API"
+				}
+			}
+		},
+		{
+			"parameters": {
+				"operation": "processByIds",
+				"recordIdsJson": "={{ $json.items.map(item => item._id) }}"
+			},
+			"id": "process-anomalies",
+			"name": "Re-run Detection",
+			"type": "n8n-nodes-tese.teseAnomaly",
+			"typeVersion": 1,
+			"position": [720, 300],
+			"credentials": {
+				"teseApi": {
+					"id": "REPLACE_WITH_CREDENTIAL_ID",
+					"name": "tese.io API"
+				}
+			}
+		}
+	],
+	"connections": {
+		"Manual Trigger": {
+			"main": [[{ "node": "tese.io Anomaly", "type": "main", "index": 0 }]]
+		},
+		"tese.io Anomaly": {
+			"main": [[{ "node": "Re-run Detection", "type": "main", "index": 0 }]]
+		}
+	},
+	"meta": {
+		"templateCredsSetupCompleted": false,
+		"instanceId": "tese-anomaly-review-template"
+	}
+}
