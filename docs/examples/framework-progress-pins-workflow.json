@@ -1,0 +1,66 @@
+{
+	"name": "TESE framework progress monitor",
+	"nodes": [
+		{
+			"parameters": {
+				"rule": {
+					"interval": [{ "field": "hours", "hoursInterval": 24 }]
+				}
+			},
+			"id": "schedule",
+			"name": "Daily Schedule",
+			"type": "n8n-nodes-base.scheduleTrigger",
+			"typeVersion": 1.2,
+			"position": [240, 300]
+		},
+		{
+			"parameters": {
+				"resource": "frameworkProgress",
+				"operation": "getProgress",
+				"includeQuestions": true,
+				"facilityId": "={{ $json.facilityId }}",
+				"reportingCycleId": "={{ $json.reportingCycleId }}"
+			},
+			"id": "framework-progress",
+			"name": "tese.io Framework Progress",
+			"type": "n8n-nodes-tese.tese",
+			"typeVersion": 1,
+			"position": [480, 300],
+			"credentials": {
+				"teseApi": {
+					"id": "REPLACE_WITH_CREDENTIAL_ID",
+					"name": "tese.io API"
+				}
+			}
+		},
+		{
+			"parameters": {
+				"resource": "activityPins",
+				"operation": "getHub"
+			},
+			"id": "activity-pins",
+			"name": "tese.io Activity Pins",
+			"type": "n8n-nodes-tese.tese",
+			"typeVersion": 1,
+			"position": [720, 300],
+			"credentials": {
+				"teseApi": {
+					"id": "REPLACE_WITH_CREDENTIAL_ID",
+					"name": "tese.io API"
+				}
+			}
+		}
+	],
+	"connections": {
+		"Daily Schedule": {
+			"main": [[{ "node": "tese.io Framework Progress", "type": "main", "index": 0 }]]
+		},
+		"tese.io Framework Progress": {
+			"main": [[{ "node": "tese.io Activity Pins", "type": "main", "index": 0 }]]
+		}
+	},
+	"meta": {
+		"templateCredsSetupCompleted": false,
+		"instanceId": "tese-framework-progress-template"
+	}
+}

@@ -8,6 +8,7 @@ const resourceOptions: INodeProperties = {
 	noDataExpression: true,
 	options: [
 		{ name: 'Activity', value: 'activity' },
+		{ name: 'Activity Pin', value: 'activityPins' },
 		{ name: 'Aggregation', value: 'aggregation' },
 		{ name: 'Answer Bank', value: 'answerBank' },
 		{ name: 'Audit Request', value: 'auditRequest' },
@@ -21,6 +22,7 @@ const resourceOptions: INodeProperties = {
 		{ name: 'Framework', value: 'framework' },
 		{ name: 'Framework Pack', value: 'frameworkPack' },
 		{ name: 'Framework Pack Answer', value: 'frameworkPackAnswer' },
+		{ name: 'Framework Progress', value: 'frameworkProgress' },
 		{ name: 'Materiality Assessment', value: 'materialityAssessments' },
 		{ name: 'Metric Catalog', value: 'metricCatalog' },
 		{ name: 'Normalised Answer Bank', value: 'normalisedAnswerBank' },

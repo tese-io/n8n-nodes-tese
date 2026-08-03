@@ -107,3 +107,15 @@ export function toNodeOptions(
 		})
 		.filter((option): option is { name: string; value: string } => option !== null);
 }
+
+export function buildReportingContextHeaders(
+	execute: IExecuteFunctions,
+	itemIndex: number,
+): IDataObject {
+	const headers: IDataObject = {};
+	const facilityId = execute.getNodeParameter('facilityId', itemIndex, '') as string;
+	const reportingCycleId = execute.getNodeParameter('reportingCycleId', itemIndex, '') as string;
+	if (facilityId) headers['x-location-id'] = facilityId;
+	if (reportingCycleId) headers['x-reporting-cycle'] = reportingCycleId;
+	return headers;
+}

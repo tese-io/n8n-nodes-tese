@@ -58,6 +58,19 @@ export const extendedOperations: INodeProperties[] = [
 		'getActivityInputs',
 	),
 	operationsBlock(
+		'activityPins',
+		[
+			{ name: 'Add Pin', value: 'addPin', action: 'Pin an activity question for a user' },
+			{ name: 'Get Hub', value: 'getHub', action: 'Get tenant activity hub config' },
+			{
+				name: 'Update Hub',
+				value: 'updateHub',
+				action: 'Update pinned activities and assignments',
+			},
+		],
+		'getHub',
+	),
+	operationsBlock(
 		'aggregation',
 		[
 			{ name: 'Batch', value: 'batch', action: 'Run batch aggregation' },
@@ -127,6 +140,18 @@ export const extendedOperations: INodeProperties[] = [
 			{ name: 'Update', value: 'update', action: 'Update a framework pack answer' },
 		],
 		'getAll',
+	),
+	operationsBlock(
+		'frameworkProgress',
+		[
+			{ name: 'Get Progress', value: 'getProgress', action: 'Get framework completion progress' },
+			{
+				name: 'Get Question Context',
+				value: 'getQuestionContext',
+				action: 'Get answer bank and activities for a question',
+			},
+		],
+		'getProgress',
 	),
 	operationsBlock(
 		'normalisedAnswerBank',
@@ -433,4 +458,79 @@ export const extendedFields: INodeProperties[] = [
 
 	// Task Workflow
 	requestBodyField('taskWorkflow', ['validateTransition']),
+
+	// Framework Progress + Activity Pins (Lite field entry)
+	{
+		displayName: 'Facility ID',
+		name: 'facilityId',
+		type: 'string',
+		default: '',
+		description: 'Scopes results to a facility (sent as x-location-ID header)',
+		displayOptions: {
+			show: {
+				resource: ['frameworkProgress', 'activityPins'],
+				operation: ['getProgress', 'getQuestionContext', 'getHub', 'addPin'],
+			},
+		},
+	},
+	{
+		displayName: 'Reporting Cycle ID',
+		name: 'reportingCycleId',
+		type: 'string',
+		default: '',
+		description: 'Scopes results to a reporting cycle (sent as x-reporting-cycle header)',
+		displayOptions: {
+			show: {
+				resource: ['frameworkProgress', 'activityPins'],
+				operation: ['getProgress', 'getQuestionContext', 'getHub', 'addPin'],
+			},
+		},
+	},
+	{
+		displayName: 'Include Questions',
+		name: 'includeQuestions',
+		type: 'boolean',
+		default: false,
+		displayOptions: {
+			show: { resource: ['frameworkProgress'], operation: ['getProgress'] },
+		},
+	},
+	{
+		displayName: 'Question ID',
+		name: 'questionId',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'Activity question identifier (e.g. Q_ACTIVITY_...)',
+		displayOptions: {
+			show: {
+				resource: ['frameworkProgress', 'activityPins'],
+				operation: ['getQuestionContext', 'addPin'],
+			},
+		},
+	},
+	{
+		displayName: 'Hub Config (JSON)',
+		name: 'hubJson',
+		type: 'json',
+		default: '{}',
+		required: true,
+		description: 'Pinned activity question IDs and/or activity assignments',
+		displayOptions: {
+			show: { resource: ['activityPins'], operation: ['updateHub'] },
+		},
+	},
+	{
+		displayName: 'User ID',
+		name: 'userId',
+		type: 'string',
+		default: '',
+		description: 'Acting user for hub visibility and personal pins (API key automation)',
+		displayOptions: {
+			show: {
+				resource: ['activityPins'],
+				operation: ['getHub', 'addPin'],
+			},
+		},
+	},
 ];

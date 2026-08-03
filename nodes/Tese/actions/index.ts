@@ -1,6 +1,7 @@
 import type { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import { NodeOperationError } from 'n8n-workflow';
 import type { TeseApiCredentials } from '../../shared/teseApiRequest';
+import { executeActivityPins } from './activityPins';
 import { executeActivity } from './activity';
 import { executeAggregation } from './aggregation';
 import { executeAnswerBank } from './answerBank';
@@ -12,6 +13,7 @@ import { executeEsgData } from './esgData';
 import { executeEvidenceManager } from './evidenceManager';
 import { executeFacility } from './facility';
 import { executeFormulaExecution } from './formulaExecution';
+import { executeFrameworkProgress } from './frameworkProgress';
 import { executeFramework } from './framework';
 import { executeFrameworkPack } from './frameworkPack';
 import { executeFrameworkPackAnswer } from './frameworkPackAnswer';
@@ -33,9 +35,11 @@ import type { ActionContext } from './helpers';
 const resourceHandlers: Record<string, (ctx: ActionContext) => Promise<IDataObject>> = {
 	facility: executeFacility,
 	activity: executeActivity,
+	activityPins: executeActivityPins,
 	metricCatalog: executeMetricCatalog,
 	esgData: executeEsgData,
 	framework: executeFramework,
+	frameworkProgress: executeFrameworkProgress,
 	auditRequest: executeAuditRequest,
 	report: executeReport,
 	answerBank: executeAnswerBank,
