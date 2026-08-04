@@ -58,7 +58,14 @@ async function executeOperation(
 				? recordIds
 				: Array.isArray(recordIds.record_ids)
 					? recordIds.record_ids
-					: [];
+					: null;
+			if (!ids || ids.length === 0) {
+				throw new NodeOperationError(
+					execute.getNode(),
+					'Record IDs must be a non-empty JSON array (or { "record_ids": [...] })',
+					{ itemIndex },
+				);
+			}
 			const data = await teseApiRequest.call(
 				execute,
 				credentials,
@@ -285,6 +292,11 @@ export class TeseAnomaly implements INodeType {
 				displayName: 'Batch Limit',
 				name: 'batchLimit',
 				type: 'number',
+				typeOptions: {
+					minValue: 1,
+					maxValue: 200,
+				},
+				description: 'Max number of random unprocessed records to process',
 				default: 10,
 				displayOptions: { show: { operation: ['processRandom'] } },
 			},
@@ -308,8 +320,9 @@ export class TeseAnomaly implements INodeType {
 				displayName: 'User ID',
 				name: 'userId',
 				type: 'string',
+				required: true,
 				default: '',
-				description: 'Acting user for overrides (API key automation)',
+				description: 'Acting user ObjectId for audit attribution on overrides',
 				displayOptions: { show: { operation: ['override'] } },
 			},
 			{

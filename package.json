@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-tese",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "n8n community nodes for TESE — ESG external API, Tesera AI, OCR, voice entry, anomaly detection, climate risk, platform triggers, webhook triggers, and workflow finalize",
 	"license": "MIT",
 	"homepage": "https://docs.tese.io/integrations/n8n",
